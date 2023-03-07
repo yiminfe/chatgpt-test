@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .menu-container {
+        position: fixed;
+        bottom: 550px;
+        right: 550px;
+        z-index: 1000;
+      }
+
+      .menu-toggle {
+        position: relative;
+        width: 60px;
+        height: 60px;
+        border: none;
+        border-radius: 50%;
+        background-color: #007bff;
+        color: #fff;
+        font-size: 24px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .menu-toggle .menu-icon {
+        display: block;
+      }
+
+      .menu-toggle .close-icon {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .menu-items {
+        position: absolute;
+        bottom: 50%;
+        left: -160px;
+        transform: translateY(50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 0;
+        height: 0;
+        opacity: 0;
+        transition: all 0.5s cubic-bezier(0.5, 0.05, 0.5, 0.95);
+      }
+
+      .menu-items a {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #007bff;
+        color: #fff;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s cubic-bezier(0.5, 0.05, 0.5, 0.95);
+      }
+
+      .menu-items a:nth-child(1) {
+        transform: translate(-80px, -120px);
+      }
+
+      .menu-items a:nth-child(2) {
+        transform: translate(-80px, 0);
+      }
+
+      .menu-items a:nth-child(3) {
+        transform: translate(-80px, 120px);
+      }
+
+      .menu-items a:nth-child(4) {
+        transform: translate(-20px, -40px);
+      }
+
+      .menu-toggle.open {
+        background-color: #ff3b3b;
+      }
+
+      .menu-toggle.open .menu-icon {
+        display: none;
+      }
+
+      .menu-toggle.open .close-icon {
+        display: block;
+      }
+
+      .menu-items.open {
+        width: 160px;
+        height: 240px;
+        opacity: 1;
+      }
+
+      .menu-items.open a {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .menu-items.close a {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .menu-items.close:nth-of-type(1) a {
+        transform: translate(-80px, -120px);
+      }
+
+      .menu-items.close:nth-of-type(2) a {
+        transform: translate(-80px, 120px);
+      }
+
+      .menu-items.close:nth-of-type(3) a {
+        transform: translate(-80px, 0);
+      }
+
+      .menu-items.close:nth-of-type(4) a {
+        transform: translate(-20px, -40px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="menu-container">
+      <button class="menu-toggle">
+        <span class="menu-icon">&#9776;</span>
+        <span class="close-icon">&#10006;</span>
+      </button>
+      <div class="menu-items">
+        <a href="#">
+          <span class="menu-item-icon">&#x1F3E0;</span>
+          <span class="menu-item-label">🏠 Home</span>
+        </a>
+        <a href="#">
+          <span class="menu-item-icon">&#x1F4D6;</span>
+          <span class="menu-item-label">📖 Books</span>
+        </a>
+        <a href="#">
+          <span class="menu-item-icon">&#x1F4E6;</span>
+          <span class="menu-item-label">📦 Boxes</span>
+        </a>
+        <a href="#">
+          <span class="menu-item-icon">&#x274C;</span>
+          <span class="menu-item-label">❌ Close</span>
+        </a>
+      </div>
+    </div>
+
+    <script>
+      var menuToggle = document.querySelector('.menu-toggle')
+      var menuItems = document.querySelector('.menu-items')
+      var menuIcons = document.querySelectorAll('.menu-item-icon')
+
+      menuToggle.addEventListener('click', function () {
+        this.classList.toggle('open')
+
+        if (this.classList.contains('open')) {
+          var angle = 0
+          var angleIncrement = 90 / (menuIcons.length - 1)
+
+          menuItems.classList.add('open')
+          menuItems.classList.remove('close')
+          menuIcons.forEach(function (icon, index) {
+            var delay = index * 100
+            var x = -Math.cos((angle * Math.PI) / 180) * 80
+            var y = Math.sin((angle * Math.PI) / 180) * 80
+
+            icon.parentElement.style.transitionDelay = delay + 'ms'
+            icon.parentElement.style.transform =
+              'translate(' + x + 'px, ' + y + 'px)'
+            angle += angleIncrement
+          })
+        } else {
+          menuItems.classList.remove('open')
+          menuItems.classList.add('close')
+
+          menuIcons.forEach(function (icon, index) {
+            var delay = (menuIcons.length - index - 1) * 100
+
+            icon.parentElement.style.transitionDelay = delay + 'ms'
+            icon.parentElement.style.transform = 'translate(-80px, 0)'
+          })
+
+          setTimeout(function () {
+            menuItems.classList.remove('close')
+          }, menuIcons.length * 100)
+        }
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script>
+      const screenWidth = window.innerWidth
+      const designWidth = 794 // 设计稿宽度
+      const scale = screenWidth / designWidth
+      const viewport = document.querySelector('meta[name="viewport"]')
+      viewport.setAttribute(
+        'content',
+        `width=${designWidth}, initial-scale=${scale}`
+      )
+    </script>
+
+    <title>赵依民（资深大前端研发工程师）</title>
+
+    <style>
+      * {
+        -webkit-text-size-adjust: none;
+        -moz-text-size-adjust: none;
+        -ms-text-size-adjust: none;
+        text-size-adjust: none;
+      }
+
+      /* 默认主题（黑色） */
+      :root {
+        --bg-color: #f6f6ef;
+        --text-color: #151320;
+        --separator-color: #8ab4f8;
+        --module-shadow: #ffffff;
+      }
+
+      /* 白色主题 */
+      .light {
+        --bg-color: #202124;
+        --text-color: #ffffff;
+        --separator-color: #7566c4;
+        --module-shadow: #000000;
+      }
+
+      /* 最外层容器 */
+      body {
+        background-color: var(--bg-color);
+        margin: 0px;
+        font-family: 'Microsoft YaHei', Arial, sans-serif;
+        color: var(--bg-color);
+        line-height: 1.5;
+        font-size: 14px;
+      }
+
+      p {
+        margin: 0px;
+        padding: 0px;
+      }
+
+      .download-container {
+        position: fixed;
+        bottom: 50%;
+        left: 50%;
+        display: flex;
+        /* margin-right: -607px; */
+        width: 180px;
+        height: 430px;
+        margin-left: 427px;
+        margin-bottom: -215px;
+        background-color: transparent;
+        flex-direction: column;
+        justify-content: center;
+        z-index: 9999;
+        transition: all 1s ease;
+      }
+
+      .download-container.close {
+        left: 110%;
+        margin-left: 0px;
+      }
+
+      .download-btn {
+        display: flex;
+        align-items: center;
+        width: 180px;
+        box-sizing: border-box;
+        padding: 15px;
+        background-color: var(--text-color);
+        box-shadow: 2px 2px 8px var(--text-color);
+        border-radius: 4px;
+        margin: 15px 0px;
+        color: var(--bg-color);
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .download-btn .icon {
+        font-size: 20px;
+        margin-right: 10px;
+      }
+
+      .download-btn.chat {
+        flex-direction: column;
+        cursor: auto;
+      }
+
+      .download-btn.chat img {
+        width: 100%;
+      }
+
+      .download-btn.chat span {
+        margin-top: 10px;
+      }
+
+      .menu-container {
+        position: fixed;
+        bottom: 50%;
+        right: 50%;
+        display: flex;
+        width: 70px;
+        height: 70px;
+        margin-right: -707px;
+        margin-bottom: -35px;
+        display: flex;
+        justify-content: center;
+        background-color: var(--text-color);
+        box-shadow: 2px 2px 8px var(--text-color);
+        border-radius: 50%;
+        font-size: 47px;
+        cursor: pointer;
+        text-align: center;
+        z-index: 99999;
+      }
+
+      .menu-container .menu-btn {
+        padding-top: 0px;
+      }
+
+      /* A4 纸容器 */
+      .a4-container {
+        margin: 0px auto;
+        background-color: var(--text-color);
+        width: 794px;
+        padding: 1cm;
+        box-sizing: border-box;
+      }
+
+      .module-title.page {
+        display: none;
+      }
+
+      a {
+        color: var(--separator-color);
+        text-underline-offset: 4px;
+      }
+
+      /* a:hover {
+        text-decoration-line: underline;
+        text-underline-offset: 4px;
+      } */
+
+      /* 简历标题 */
+      .header {
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+        font-size: 36px;
+        margin-bottom: 20px;
+      }
+
+      .header .name {
+        font-weight: bold;
+        margin-right: 30px;
+        line-height: 1;
+      }
+
+      .header .job-title {
+        font-size: 24px;
+        display: flex;
+      }
+
+      .job-title .icon {
+        margin-right: 10px;
+      }
+
+      /* 个人信息 */
+      .personal-info {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .personal-info .info-item {
+        margin: 0 20px 0 10px;
+        white-space: nowrap;
+      }
+
+      .personal-info p:last-child .info-item {
+        margin-right: 0;
+      }
+
+      .personal-info p {
+        display: flex;
+      }
+
+      /* 个人优势模块 */
+
+      .module {
+        margin-bottom: 20px;
+      }
+
+      /* 修改后的样式 */
+      .module-title {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .module-title .icon-box {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 28px;
+        width: 0px;
+        height: 0px;
+        margin-right: 10px;
+        border-radius: 50%;
+        border: 20px solid var(--separator-color);
+      }
+
+      .icon-box.top {
+        border-top: 18px solid var(--separator-color);
+        border-bottom: 22px solid var(--separator-color);
+        border-left: 20px solid var(--separator-color);
+        border-right: 20px solid var(--separator-color);
+      }
+
+      .module-title .text {
+        font-size: 24px;
+        color: var(--separator-color);
+        font-weight: bold;
+        margin-right: 10px;
+      }
+
+      .separator {
+        flex: 1;
+        border-bottom: 1px solid var(--separator-color);
+      }
+
+      .advantages {
+        margin: 0;
+        padding: 0;
+        list-style: disc;
+        padding-left: 45px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .advantages li {
+        margin-bottom: 7px;
+      }
+
+      .advantages li:last-child {
+        margin-bottom: 0px;
+      }
+
+      /* 工作经历模块样式 */
+
+      /* 时间线样式 */
+      /* 时间线样式 */
+      .timeline {
+        position: relative;
+        margin: 0;
+        padding: 0;
+      }
+
+      .timeline-item {
+        position: relative;
+        margin: 0;
+        padding-left: 45px;
+      }
+
+      .timeline-item-line {
+        position: absolute;
+        left: 34px;
+        top: 12px;
+        bottom: -10px;
+        width: 0;
+        border-right: 1px solid var(--separator-color);
+      }
+
+      .timeline-item-line li {
+        margin-top: -12px;
+        margin-left: -2px;
+      }
+      .timeline-item:last-child .timeline-item-line {
+        border-right: none;
+      }
+
+      .timeline-item-content {
+        position: relative;
+        padding: 0;
+        min-height: 40px;
+      }
+
+      .timeline-item-header {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .timeline-item-header .timeline-item-date {
+        font-weight: bold;
+      }
+
+      .timeline-item-header .timeline-item-company {
+        width: 357px;
+      }
+
+      .timeline-item-header .timeline-item-position {
+        width: 150px;
+        text-align: right;
+      }
+      .timeline-item-body {
+        margin-left: 1px;
+        padding: 10px 0px 20px 0px;
+        display: flex;
+      }
+
+      .timeline-item:last-child .timeline-item-body {
+        padding-bottom: 0px;
+      }
+
+      .timeline-item-achievement {
+        display: flex;
+        padding-left: 125px;
+      }
+      .timeline-item-achievement ul {
+        list-style-type: circle;
+        margin: 0px;
+      }
+
+      .module-description {
+        padding-top: 20px;
+        padding-left: 46px;
+        -webkit-text-size-adjust: 100%;
+        display: none;
+      }
+
+      .project-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .project-meta {
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .project-name {
+        font-weight: bold;
+        width: 180px;
+        text-align: right;
+      }
+
+      .project-name ul {
+        margin: 0px;
+        padding-left: 45px;
+      }
+
+      .project-info {
+        display: flex;
+        justify-content: space-between;
+        width: 523px;
+      }
+      .project-row {
+        display: flex;
+        margin-bottom: 8px;
+        justify-content: flex-end;
+      }
+
+      .project-row:last-child {
+        margin-bottom: 0px;
+      }
+
+      .project-row:last-child .project-list-inline li:last-child {
+        margin-bottom: 0px;
+      }
+
+      .project-label {
+        font-weight: bold;
+        margin-right: 30.5px;
+      }
+
+      .project-list-inline {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+        width: 507.5px;
+        list-style-type: circle;
+      }
+
+      .project-list-inline li {
+        margin-bottom: 7px;
+      }
+
+      .other-project-outer {
+        padding-left: 45px;
+        display: flex;
+        flex-direction: column;
+        margin: 0px;
+      }
+
+      .other-project-outer li {
+        margin-bottom: 7px;
+      }
+
+      .other-project-outer > li {
+        font-weight: bold;
+        margin-bottom: 7px;
+      }
+
+      .other-project-outer li:last-child {
+        margin-bottom: 0px;
+      }
+
+      .other-project-inner {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+        margin-left: 126px;
+      }
+      .other-project-inner.last {
+        margin-bottom: 0px;
+      }
+
+      .school {
+        display: flex;
+        justify-content: space-between;
+      }
+      .school > ul {
+        padding-left: 45px;
+        margin: 0px;
+        font-weight: bold;
+      }
+
+      .school-honor {
+        padding-left: 211px;
+        list-style-type: circle;
+        margin: 15px 0px;
+      }
+
+      .school-honor li {
+        margin-bottom: 10px;
+      }
+
+      /* @media (max-width: 794px) {
+        .download-container {
+          margin-right: 0px;
+          right: 80px;
+        }
+        .download-btn {
+          background-color: var(--bg-color);
+          color: var(--text-color);
+          box-shadow: 2px 2px 8px var(--bg-color);
+        }
+      } */
+
+      .icon.rotation {
+        display: inline-block;
+        transition: transform 1s ease;
+      }
+
+      .icon.open {
+        transform: rotate(0.5turn);
+      }
+
+      /* 对于小屏幕设备，使用此样式 */
+      .small-screen .download-container {
+        margin-left: 87px;
+        margin-bottom: -430px;
+      }
+
+      .small-screen .download-btn,
+      .small-screen .menu-container {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        box-shadow: 2px 2px 8px var(--bg-color);
+      }
+
+      .small-screen .menu-container {
+        right: 30px;
+        margin-right: 0px;
+        margin-bottom: -250px;
+      }
+
+      /* 打印时样式，调整A4纸容器的大小 */
+      @media print {
+        .a4-container {
+          margin: 0;
+          height: 2244px;
+        }
+
+        .module-title.page {
+          display: flex;
+          padding-top: 1cm;
+        }
+
+        .download-container,
+        .menu-container {
+          display: none;
+        }
+
+        .project-list-inline {
+          width: 506.5px;
+        }
+
+        .project-label {
+          margin-right: 31.5px;
+        }
+
+        .timeline-item-line {
+          left: 30px;
+        }
+
+        .module span.icon {
+          padding-top: 8px;
+        }
+
+        .header span.icon {
+          padding-top: 3px;
+        }
+
+        .personal-info span.icon {
+          padding-top: 2px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="a4-container">
+      <!-- 此处添加 A4 纸内容 -->
+      <div class="header">
+        <span class="name">赵依民</span>
+        <div class="job-title">
+          <span class="icon">👨‍💻</span>资深大前端研发工程师
+        </div>
+      </div>
+
+      <div class="personal-info">
+        <p>
+          <span class="icon">☎️</span>
+          <a class="info-item" href="tel:18510512011">185-1051-2011</a>
+        </p>
+        <p>
+          <span class="icon">📩</span>
+          <a class="info-item" href="mailto:yiminfe@163.com">yiminfe@163.com</a>
+        </p>
+        <p>
+          <span class="icon">🌐</span>
+          <a class="info-item" href="https://github.com/yiminfe" target="_blank"
+            >GitHub</a
+          >
+        </p>
+        <p>
+          <span class="icon">👨</span>
+          <span class="info-item">男</span>
+        </p>
+        <p>
+          <span class="icon">🎂</span>
+          <span class="info-item">1996</span>
+        </p>
+      </div>
+
+      <div class="module">
+        <div class="module-title">
+          <div class="icon-box top">
+            <span class="icon">💪</span>
+          </div>
+          <span class="text">个人优势</span>
+          <div class="separator"></div>
+        </div>
+        <ul class="advantages">
+          <li>熟悉浏览器、网络、Chrome V8 底层原理，深入研究过 Vue 的源码。</li>
+          <li>
+            全面的技术栈，熟练 Vue、React 及周边库，精通前端工程化和
+            SSR，拥有小程序 和 Flutter 经验。
+          </li>
+          <li>
+            具备 Node.js 技术背景，熟悉 Web Server 框架选型和高可用 Server
+            端架构。
+          </li>
+          <li>
+            具备技术攻坚、独立研究、架构设计能力，重视产品安全、性能优化、用户体验。
+          </li>
+          <li>
+            在大厂、创业团队协作中积累了丰富经验，拥有互联网和非互联网产品创业经历，善于沟通总结，敢于挑战。
+          </li>
+          <li>
+            拥有 ChatGPT 深度研究和应用经验，当前简历使用 ChatGPT
+            进行设计和开发：<a
+              class="info-item"
+              href="https://cv.yiminfe.com"
+              target="_blank"
+              >《个人简历》</a
+            >。
+          </li>
+        </ul>
+      </div>
+      <div class="module">
+        <div class="module-title">
+          <div class="icon-box top">
+            <span class="icon">💼</span>
+          </div>
+          <span class="text">工作经历</span>
+          <div class="separator"></div>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-item-line"><li></li></div>
+            <div class="timeline-item-content">
+              <div class="timeline-item-header">
+                <span class="timeline-item-date">2021.10 — 2023.02</span>
+                <span class="timeline-item-company">长沙自主创业</span>
+                <span class="timeline-item-position">创业者、持续学习者</span>
+              </div>
+              <div class="timeline-item-body">
+                <div class="timeline-item-achievement">
+                  <ul>
+                    <li>
+                      为本地社区提供就业机会。回顾过往职业经历，重新规划职业发展路线。
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-item-line"><li></li></div>
+            <div class="timeline-item-content">
+              <div class="timeline-item-header">
+                <span class="timeline-item-date">2019.08 — 2021.09</span>
+                <span class="timeline-item-company"
+                  >北京学而思教育科技有限公司
+                </span>
+                <span class="timeline-item-position">高级大前端研发工程师</span>
+              </div>
+              <div class="timeline-item-body">
+                <div class="timeline-item-achievement">
+                  <ul>
+                    <li>
+                      2020 年 9 月，成功晋升，通过率 30%。2020 年年度绩效为
+                      A，集团 Top 20。
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-item-line"><li></li></div>
+            <div class="timeline-item-content">
+              <div class="timeline-item-header">
+                <span class="timeline-item-date">2018.06 — 2019.08</span>
+                <span class="timeline-item-company"
+                  >北京博雅智学软件股份有限公司</span
+                >
+                <span class="timeline-item-position">大前端研发工程师</span>
+              </div>
+              <div class="timeline-item-body">
+                <div class="timeline-item-achievement">
+                  <ul>
+                    <li>
+                      独立研究 Flutter 新技术，并成功交付 4 个
+                      App。为公司节省了一定的研发成本。
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item page">
+            <div class="timeline-item-line"><li></li></div>
+            <div class="timeline-item-content">
+              <div class="timeline-item-header">
+                <span class="timeline-item-date">2016.04 — 2018.06</span>
+                <span class="timeline-item-company"
+                  >北京若为信息技术有限公司</span
+                >
+                <span class="timeline-item-position">iOS 研发负责人</span>
+              </div>
+              <div class="timeline-item-body">
+                <div class="timeline-item-achievement">
+                  <ul>
+                    <li>
+                      获得 2016 年口粮 App 动画创意奖杯和最佳优秀员工荣誉证书。
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="module">
+        <div class="module-title">
+          <div class="icon-box">
+            <span class="icon">🚀</span>
+          </div>
+          <span class="text">主要项目经验</span>
+          <div class="separator"></div>
+        </div>
+        <div class="project-list">
+          <div class="project-item">
+            <div class="project-meta">
+              <div class="project-name">
+                <ul>
+                  <li>学而思图书商城系统</li>
+                </ul>
+              </div>
+              <div class="project-info">
+                <span class="project-industry"
+                  >好未来集团教育图书 C 端电商系统</span
+                >
+                <span class="project-time">2019.08 — 2021.09</span>
+              </div>
+            </div>
+            <div class="project-details">
+              <div class="project-row">
+                <div class="project-label">技术栈</div>
+                <ul class="project-list-inline">
+                  <li>
+                    H5 端：React Class、React Hooks、Redux、Ant Design Mobile。
+                  </li>
+                  <li>后台管理：Vue2、Vuex、Element UI。</li>
+                  <li>异常报警机器人：Node.js、Egg.js。</li>
+                </ul>
+              </div>
+              <div class="project-row">
+                <div class="project-label">难点</div>
+                <ul class="project-list-inline">
+                  <li>
+                    商城首页、活动推广页：多模块，大数据量加载，首屏性能差。
+                  </li>
+                  <li>
+                    跨部门对接多款知名 App，研发样式、用户鉴权、交易方式差异化。
+                  </li>
+                  <li>SKU 管理：易误操作、风险高，需灵活易用、安全可靠。</li>
+                </ul>
+              </div>
+              <div class="project-row">
+                <div class="project-label">成就</div>
+                <ul class="project-list-inline">
+                  <li>优化大数据量加载，实现首屏 0.5 TTI、0 RTT 交互。</li>
+                  <li>实现差异化配置，多渠道交易，业绩提升 600 万/月。。</li>
+                  <li>
+                    重构 SKU
+                    管理系统，提高效率，减少风险。晋升述职重构细节，获得好评通过。
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="module">
+        <div class="module-title page">
+          <div class="icon-box">
+            <span class="icon">🚀</span>
+          </div>
+          <span class="text">主要项目经验（续上一页）</span>
+          <div class="separator"></div>
+        </div>
+        <div class="project-list page">
+          <div class="project-item">
+            <div class="project-meta">
+              <div class="project-name">
+                <ul>
+                  <li>大后台管理项目整合</li>
+                </ul>
+              </div>
+              <div class="project-info">
+                <span class="project-industry"
+                  >好未来图书集采系统（集团内部 B 端电商）、多个后台管理</span
+                >
+                <span class="project-time">2019.08 — 2021.09</span>
+              </div>
+            </div>
+            <div class="project-details">
+              <div class="project-row">
+                <div class="project-label">技术栈</div>
+                <ul class="project-list-inline">
+                  <li>Vue2、Vuex、Element UI、微前端（阿里 qiankun）</li>
+                  <li>集采：Vue3、Element Plus</li>
+                </ul>
+              </div>
+              <div class="project-row">
+                <div class="project-label">难点</div>
+                <ul class="project-list-inline">
+                  <li>
+                    多项目技术栈不统一，有乙方、现有团队、前团队交接项目。
+                  </li>
+                  <li>
+                    项目功能重叠，数据不互通，如登录、权限、商品、订单、题库、可视化数据等。
+                  </li>
+                  <li>
+                    跨部门沟通对接多个系统，如知音楼、组织架构、好未来
+                    AI、财务等。
+                  </li>
+                </ul>
+              </div>
+              <div class="project-row">
+                <div class="project-label">成就</div>
+                <ul class="project-list-inline">
+                  <li>
+                    用微前端统一大后台，项目独立部署，无技术栈限制，统一权限、域名、登录。
+                  </li>
+                  <li>确保团队在新业务中尝试新技术，保持学习的欲望。</li>
+                  <li>
+                    研究 Vue3、微前端，提升前端团队实力，提高运营团队效率。
+                  </li>
+                  <li>2020 年年度绩效评分为 A，全集团 Top 20。</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="module-description">
+          只列举了主要项目经验，其余部分项目在（部分可访问项目）中补充。
+        </div>
+      </div>
+
+      <div class="module">
+        <div class="module-title">
+          <div class="icon-box">
+            <span class="icon">🔗</span>
+          </div>
+          <span class="text">部分可访问项目</span>
+          <div class="separator"></div>
+        </div>
+
+        <div class="other-project">
+          <ul class="other-project-outer">
+            <li>ChatGPT 开发的项目</li>
+            <ul class="other-project-inner">
+              <li>
+                <a
+                  class="info-item"
+                  href="https://cv.yiminfe.com"
+                  target="_blank"
+                  >个人简历</a
+                >、<a
+                  class="info-item"
+                  href="https://yiminfe.github.io/CV/"
+                  target="_blank"
+                  >ChatGPT 介绍官网</a
+                >、<a
+                  class="info-item"
+                  href="https://yiminfe.github.io/CV/"
+                  target="_blank"
+                  >图书商城首页</a
+                >
+              </li>
+              <li>
+                <a
+                  class="info-item"
+                  href="https://yiminfe.github.io/CV/"
+                  target="_blank"
+                  >后台管理系统</a
+                >、<a
+                  class="info-item"
+                  href="https://yiminfe.github.io/CV/"
+                  target="_blank"
+                  >Markdown 文件管理系统</a
+                >、<a
+                  class="info-item"
+                  href="https://yiminfe.github.io/CV/"
+                  target="_blank"
+                  >权限管理系统</a
+                >
+              </li>
+            </ul>
+            <li>个人项目</li>
+            <ul class="other-project-inner">
+              <li>
+                全栈技术合伙人、品牌创始人之一（2019 年）：
+                <a
+                  class="info-item"
+                  href="https://www.huaweirom.com/shooting/14890/"
+                  target="_blank"
+                  >Young 健身 App</a
+                >
+              </li>
+              <li>
+                远程前端技术合伙人（2022 年）：
+                <a
+                  class="info-item"
+                  href="https://humanmazu.com/"
+                  target="_blank"
+                  >mazu 中文学习官网（Nuxt2）</a
+                >
+              </li>
+              <li>
+                学习项目（2022 年）：<a
+                  class="info-item"
+                  href="https://ssr.yiminfe.com/home"
+                  target="_blank"
+                  >官网 SSR 渲染（Nuxt3）</a
+                >、<a
+                  class="info-item"
+                  href="https://github.com/yiminfe/vue-mini"
+                  target="_blank"
+                  >实现迷你 Vue3 框架</a
+                >
+              </li>
+            </ul>
+            <li>北京学而思教育科技有限公司</li>
+            <ul class="other-project-inner">
+              <li>
+                前端项目主导（2021 年）：
+                <a
+                  class="info-item"
+                  href="https://bookh5.xueersibook.com/cicp/store/goods/home"
+                  target="_blank"
+                  >学而思图书商城</a
+                >、<a
+                  class="info-item"
+                  href="https://bookh5.xueersibook.com/cicp/mobi/home"
+                  target="_blank"
+                  >摩比爱识字</a
+                >
+              </li>
+              <li>
+                前端项目研发（2020 年）：<a
+                  class="info-item"
+                  href="https://bookh5.xueersibook.com/cicp/platform/shop/index"
+                  target="_blank"
+                  >学而思微课程</a
+                >
+              </li>
+            </ul>
+            <li>北京博雅智学软件股份有限公司</li>
+            <ul class="other-project-inner">
+              <li>
+                App 项目负责人（2019 年）：
+                <a
+                  class="info-item"
+                  href="https://zhsz.bjedu.cn/web/login/index"
+                  target="_blank"
+                  >北京小学综素 App、北京中学综素 App</a
+                >
+              </li>
+            </ul>
+            <li>北京若为信息技术有限公司</li>
+            <ul class="other-project-inner last">
+              <li>
+                iOS 项目负责人（2018 年）：
+                <a
+                  class="info-item"
+                  href="https://baike.baidu.com/item/%E5%8F%A3%E7%B2%AE/19767215"
+                  target="_blank"
+                  >口粮 APP</a
+                >
+              </li>
+            </ul>
+          </ul>
+        </div>
+      </div>
+
+      <div class="module">
+        <div class="module-title">
+          <div class="icon-box">
+            <span class="icon">🎓</span>
+          </div>
+          <span class="text">教育经历</span>
+          <div class="separator"></div>
+        </div>
+        <!-- 教育经历 -->
+        <div class="school">
+          <ul>
+            <li>湖南工商大学（湖南商学院）</li>
+          </ul>
+          <span>计算机应用技术（大专）</span>
+          <span>2013.09 — 2016.06</span>
+        </div>
+
+        <ul class="school-honor">
+          <li>大二获得特效网页大赛，一等奖</li>
+          <li>大一获得静态网页大赛，二等奖</li>
+        </ul>
+      </div>
+    </div>
+    <div class="download-container close">
+      <div class="download-btn chat">
+        <img src="https://static.yiminfe.com/CV/wachat" />
+        <span id="WeChat-text">扫一扫，添加好友</span>
+      </div>
+      <div class="download-btn" id="download">
+        <span class="icon">⬇️</span>
+        <span class="text" id="download-text">下载 dart 简历</span>
+      </div>
+      <div class="download-btn" id="theme">
+        <span class="icon">🎨</span>
+        <span class="text" id="theme-text">切换 light 主题</span>
+      </div>
+    </div>
+
+    <div class="menu-container" id="menu-btn">
+      <div class="menu-btn">
+        <span class="icon rotation" id="menu-icon">⇦</span>
+      </div>
+    </div>
+    <script>
+      // let timeout
+      // function debounce(func, wait) {
+      //   return function executedFunction() {
+      //     const args = arguments
+
+      //     const later = function () {
+      //       timeout = null
+      //       func.apply(this, args)
+      //     }
+
+      //     clearTimeout(timeout)
+      //     timeout = setTimeout(later, wait)
+      //   }
+      // }
+
+      let isLightMode = false
+      let isOpen = false
+
+      function updateBtnText() {
+        const downloadText = document.getElementById('download-text')
+        const ThemeText = document.getElementById('theme-text')
+        downloadText.innerHTML = `下载 ${isLightMode ? 'light' : 'dark'} 简历`
+        ThemeText.innerHTML = `切换 ${isLightMode ? 'dark' : 'light'} 主题`
+      }
+
+      const downloadButton = document.getElementById('download')
+      const themeButton = document.getElementById('theme')
+      const menuButton = document.getElementById('menu-btn')
+
+      function toggleTheme() {
+        const body = document.body
+        isLightMode = !isLightMode
+        if (isLightMode) {
+          body.classList.add('light')
+        } else {
+          body.classList.remove('light')
+        }
+        isOpen && toggleMenu()
+        updateBtnText()
+      }
+
+      const downloadContainer = document.querySelector('.download-container')
+      const MenuIcon = document.getElementById('menu-icon')
+      function toggleMenu() {
+        isOpen = !isOpen
+        if (isOpen) {
+          downloadContainer.classList.remove('close')
+          MenuIcon.classList.add('open')
+        } else {
+          downloadContainer.classList.add('close')
+          MenuIcon.classList.remove('open')
+        }
+      }
+
+      function downloadPDF() {
+        let url =
+          'https://static.yiminfe.com/CV/%E8%B5%B5%E4%BE%9D%E6%B0%91%EF%BC%88%E8%B5%84%E6%B7%B1%E5%A4%A7%E5%89%8D%E7%AB%AF%E7%A0%94%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%EF%BC%89dark.pdf'
+
+        if (isLightMode) {
+          url =
+            'https://static.yiminfe.com/CV/%E8%B5%B5%E4%BE%9D%E6%B0%91%EF%BC%88%E8%B5%84%E6%B7%B1%E5%A4%A7%E5%89%8D%E7%AB%AF%E7%A0%94%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%EF%BC%89light.pdf'
+        }
+        isOpen && toggleMenu()
+        window.open(url, '_blank')
+      }
+
+      downloadButton.addEventListener('click', debounce(downloadPDF, 100))
+      themeButton.addEventListener('click', debounce(toggleTheme, 100))
+
+      menuButton.addEventListener('click', debounce(toggleMenu, 100))
+
+      window.addEventListener('load', function () {
+        setTimeout(toggleMenu, 1000)
+        setTimeout(() => {
+          isOpen && toggleMenu()
+        }, 5000)
+      })
+
+      function checkScreenSize() {
+        if (window.innerWidth < 1034) {
+          document.body.classList.add('small-screen')
+        } else {
+          document.body.classList.remove('small-screen')
+        }
+      }
+
+      window.addEventListener('resize', checkScreenSize)
+      checkScreenSize()
+
+      window.addEventListener('scroll', function () {
+        // 执行响应滚动事件的代码
+        isOpen && toggleMenu()
+      })
+
+      // 检查User-Agent字符串是否包含"MicroMessenger"（微信）
+      var isWeChat = /MicroMessenger/i.test(navigator.userAgent)
+      const WeChatText = document.getElementById('WeChat-text')
+      if (isWeChat) {
+        WeChatText.innerHTML = '长按，添加好友'
+      }
+    </script>
+  </body>
+</html>
